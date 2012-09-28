@@ -1,0 +1,43 @@
+<form name="myForm" id="requestForm">
+  <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+    <label>Name</label>
+    <input type="text" name="name" ng-model="editRequest.name" required>
+    <span ng-show="myForm.name.$error.required" class="help-inline">
+        Required</span>
+  </div>
+
+  <div class="control-group" ng-class="{error: myForm.prename.$invalid}">
+    <label>Vorname</label>
+    <input type="text" name="prename" ng-model="editRequest.prename" required>
+    <span ng-show="myForm.prename.$error.required" class="help-inline">
+        Required</span>
+  </div>
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      disabled: true,
+      constrainInput: false
+    }).change(function() {
+      $("#datepickerAlt").val( $( "#datepicker" ).val());
+    });
+    $("#dateEnable").click(function(){
+      $( "#datepicker" ).datepicker('enable').datepicker('show');
+    })
+
+  });
+  </script>
+  <div class="control-group" ng-class="{error: myForm.birthdate.$invalid}">
+    <label>Geburtsdatum</label>
+    <input type="hidden" name="birthdateHidden" id="datepicker"><input type="text" name="birthdate" id="datepickerAlt" ng-model="editRequest.birthdate" ng-minlength="4" ng-maxlength="10" ng-pattern="/^(\d{4})|(\d{2}\.\d{2}(\.(\d\d){1,2})?)$/" quickdate required>
+    <i class="icon-calendar" id="dateEnable"></i>
+    <span ng-show="myForm.prename.$error.required" class="help-inline">
+        Required</span>
+    <span ng-show="myForm.prename.$error.dateFormats" class="help-inline">
+        Kein g&uuml;ltiges Datumsformat!</span>    
+  </div>
+
+  <br>
+  <a href="#/" class="btn">Cancel</a>
+  <button ng-click="save(editRequest.ID)" ng-disabled="isClean() || myForm.$invalid"
+          class="btn btn-primary">Save</button>
+</form>
